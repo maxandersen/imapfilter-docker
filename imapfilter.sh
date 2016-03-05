@@ -3,7 +3,12 @@
 ## imapfiler.sh <password>
 
 cd /imapfilter/.imapfilter
-echo Start filtering at `date`
-imapfilter <<EOF
+
+while :
+do
+ echo Start filtering at `date`
+ imapfilter <<EOF
 $1
 EOF
+done
+
