@@ -4,7 +4,22 @@ MAINTAINER "Max Rydahl Andersen" <docker@xam.dk>
 ## Enabel EPEL where imapfilter is available from
 RUN yum -y install epel-release && yum -y update
 
-RUN yum -y install imapfilter
+RUN yum -y install git-core lua5.2 libpcr3 libssl1.0.0 liblua5.2
+#RUN yum -y install build-essential libpcre3-dev libssl-dev liblua5.2-dev
+RUN yum -y install make
+RUN yum -y install gcc
+RUN yum -y install openssl-devel
+RUN yum -y install lua-devel
+
+
+WORKDIR /source
+
+RUN git clone https://github.com/lefcha/imapfilter.git .
+
+RUN make all
+RUN make install
+
+#RUN yum -y install imapfilter
 
 ## Cleanup to save some space
 RUN yum clean all
@@ -26,8 +41,8 @@ USER 1000
 
 VOLUME /imapfilter/.imapfilter
 
-ENTRYPOINT ["/imapfilter/imapfilter.sh"]
+## ENTRYPOINT ["/imapfilter/imapfilter.sh"]
 
-CMD ["fakepwd"]
+## CMD ["fakepwd"]
 
 
