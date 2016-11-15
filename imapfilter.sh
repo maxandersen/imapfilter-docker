@@ -4,6 +4,7 @@
 
 cd /imapfilter/.imapfilter
 
+trap "exit" INT
 while :
 do
  echo Start filtering at `date`
